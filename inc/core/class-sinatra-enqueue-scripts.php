@@ -27,52 +27,6 @@ function sinatra_enqueues() {
 		'all'
 	);
 
-	// Enqueue IE specific styles.
-	wp_enqueue_style(
-		'sinatra-ie',
-		SINATRA_THEME_URI . '/assets/css/compatibility/ie' . $sinatra_suffix . '.css',
-		false,
-		SINATRA_THEME_VERSION,
-		'all'
-	);
-
-	wp_style_add_data( 'sinatra-ie', 'conditional', 'IE' );
-
-	// Enqueue HTML5 shiv.
-	wp_register_script(
-		'html5shiv',
-		SINATRA_THEME_URI . '/assets/js/' . $sinatra_dir . 'vendors/html5' . $sinatra_suffix . '.js',
-		array(),
-		'3.7.3',
-		true
-	);
-
-	// Load only on < IE9.
-	wp_script_add_data(
-		'html5shiv',
-		'conditional',
-		'lt IE 9'
-	);
-
-	// Flexibility.js for crossbrowser flex support.
-	wp_enqueue_script(
-		'sinatra-flexibility',
-		SINATRA_THEME_URI . '/assets/js/' . $sinatra_dir . 'vendors/flexibility' . $sinatra_suffix . '.js',
-		array(),
-		SINATRA_THEME_VERSION,
-		false
-	);
-
-	wp_add_inline_script(
-		'sinatra-flexibility',
-		'flexibility(document.documentElement);'
-	);
-
-	wp_script_add_data(
-		'sinatra-flexibility',
-		'conditional',
-		'IE'
-	);
 
 	// Register ImagesLoaded library.
 	wp_register_script(
