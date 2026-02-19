@@ -326,22 +326,7 @@ if ( ! class_exists( 'Sinatra_Dashboard' ) ) :
 			// Render dashboard navigation.
 			$this->render_navigation();
 
-			$changelog = SINATRA_THEME_PATH . '/changelog.txt';
-
-			if ( ! file_exists( $changelog ) ) {
-				$changelog = esc_html__( 'Changelog file not found.', 'sinatra' );
-			} elseif ( ! is_readable( $changelog ) ) {
-				$changelog = esc_html__( 'Changelog file not readable.', 'sinatra' );
-			} else {
-				global $wp_filesystem;
-
-				// Check if the the global filesystem isn't setup yet.
-				if ( is_null( $wp_filesystem ) ) {
-					WP_Filesystem();
-				}
-
-				$changelog = $wp_filesystem->get_contents( $changelog );
-			}
+			$changelog = $this->get_changelog_from_readme();
 
 			?>
 			<div class="si-container">
@@ -367,6 +352,29 @@ if ( ! class_exists( 'Sinatra_Dashboard' ) ) :
 
 			</div><!-- END .si-container -->
 			<?php
+		}
+
+		/**
+		 * Extract the Changelog section from readme.txt.
+		 *
+		 * @since 1.4.0
+		 * @return string Changelog text.
+		 */
+		private function get_changelog_from_readme() {
+			$readme = SINATRA_THEME_PATH . '/readme.txt';
+
+			if ( ! file_exists( $readme ) || ! is_readable( $readme ) ) {
+				return esc_html__( 'Changelog not available.', 'sinatra' );
+			}
+
+			$contents = file_get_contents( $readme ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+			// Extract text between "== Changelog ==" and the next "== " section.
+			if ( preg_match( '/== Changelog ==\s*\n(.*?)(?=\n== )/s', $contents, $matches ) ) {
+				return trim( $matches[1] );
+			}
+
+			return esc_html__( 'Changelog not available.', 'sinatra' );
 		}
 
 		/**
