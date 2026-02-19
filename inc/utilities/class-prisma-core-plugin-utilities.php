@@ -266,11 +266,29 @@ class Prisma_Core_Plugin_Utilities {
 	public function get_recommended_plugins() {
 
 		$plugins = array(
-			'prisma-companion' => array(
+			'prisma-companion'              => array(
 				'name'  => 'Prisma Companion',
 				'slug'  => 'prisma-companion',
 				'desc'  => 'The Prisma Companion plugin adds extra functionality to Prisma Core theme, such as Demo Library, widgets, custom blocks and more.',
 				'thumb' => 'https://ps.w.org/prisma-companion/assets/icon-256x256.png',
+			),
+			'wpzoom-forms'                  => array(
+				'name'  => 'WPZOOM Forms',
+				'slug'  => 'wpzoom-forms',
+				'desc'  => 'Drag & drop contact form builder for WordPress. Create contact forms, custom forms, email forms with spam protection.',
+				'thumb' => 'https://ps.w.org/wpzoom-forms/assets/icon-256x256.png',
+			),
+			'social-icons-widget-by-wpzoom' => array(
+				'name'  => 'Social Icons Widget & Block by WPZOOM',
+				'slug'  => 'social-icons-widget-by-wpzoom',
+				'desc'  => 'Add 400+ social media icons and share buttons with Gutenberg block, widget & Elementor support.',
+				'thumb' => 'https://ps.w.org/social-icons-widget-by-wpzoom/assets/icon-256x256.png',
+			),
+			'instagram-widget-by-wpzoom'    => array(
+				'name'  => 'WPZOOM Social Feed Widget & Block',
+				'slug'  => 'instagram-widget-by-wpzoom',
+				'desc'  => 'Display your Instagram photos, videos & reels with Gutenberg block, widget, shortcode & Elementor support.',
+				'thumb' => 'https://ps.w.org/instagram-widget-by-wpzoom/assets/icon-256x256.png',
 			),
 		);
 
