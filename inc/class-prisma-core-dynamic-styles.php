@@ -1592,44 +1592,45 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 					}
 				} elseif ( 'image' === $background_type ) {
 					$css_buffer .= '
-						background-image: url(' . $setting['background-image'] . ');
-						background-size: ' . $setting['background-size'] . ';
-						background-attachment: ' . $setting['background-attachment'] . ';
-						background-position: ' . $setting['background-position-x'] . '% ' . $setting['background-position-y'] . '%;
-						background-repeat: ' . $setting['background-repeat'] . ';
+						background-image: url(' . esc_url( $setting['background-image'] ) . ');
+						background-size: ' . esc_attr( $setting['background-size'] ) . ';
+						background-attachment: ' . esc_attr( $setting['background-attachment'] ) . ';
+						background-position: ' . intval( $setting['background-position-x'] ) . '% ' . intval( $setting['background-position-y'] ) . '%;
+						background-repeat: ' . esc_attr( $setting['background-repeat'] ) . ';
 					';
 				}
 
 				$css_buffer = ! empty( $css_buffer ) ? $css_selector . '{' . $css_buffer . '}' : '';
 
 				if ( 'image' === $background_type && isset( $setting['background-color-overlay'] ) && $setting['background-color-overlay'] && isset( $setting['background-image'] ) && $setting['background-image'] ) {
-					$css_buffer .= $css_selector . '::after { background-color: ' . $setting['background-color-overlay'] . '; }';
+					$css_buffer .= $css_selector . '::after { background-color: ' . esc_attr( $setting['background-color-overlay'] ) . '; }';
 				}
 			} elseif ( 'color' === $type ) {
 
 				// Text color.
 				if ( isset( $setting['text-color'] ) && ! empty( $setting['text-color'] ) ) {
-					$css_buffer .= $css_selector . ' { color: ' . $setting['text-color'] . '; }';
+					$css_buffer .= $css_selector . ' { color: ' . esc_attr( $setting['text-color'] ) . '; }';
 				}
 
 				// Link Color.
 				if ( isset( $setting['link-color'] ) && ! empty( $setting['link-color'] ) ) {
-					$css_buffer .= $css_selector . ' a { color: ' . $setting['link-color'] . '; }';
+					$css_buffer .= $css_selector . ' a { color: ' . esc_attr( $setting['link-color'] ) . '; }';
 				}
 
 				// Link Hover Color.
 				if ( isset( $setting['link-hover-color'] ) && ! empty( $setting['link-hover-color'] ) ) {
-					$css_buffer .= $css_selector . ' a:hover { color: ' . $setting['link-hover-color'] . ' !important; }';
+					$css_buffer .= $css_selector . ' a:hover { color: ' . esc_attr( $setting['link-hover-color'] ) . ' !important; }';
 				}
 			} elseif ( 'border' === $type ) {
 
 				// Color.
 				if ( isset( $setting['border-color'] ) && ! empty( $setting['border-color'] ) ) {
-					$css_buffer .= 'border-color:' . $setting['border-color'] . ';';
+					$css_buffer .= 'border-color:' . esc_attr( $setting['border-color'] ) . ';';
 				}
 
 				// Style.
-				if ( isset( $setting['border-style'] ) && ! empty( $setting['border-style'] ) ) {
+				$allowed_border_styles = array( 'none', 'solid', 'dashed', 'dotted', 'double', 'groove', 'ridge', 'inset', 'outset' );
+				if ( isset( $setting['border-style'] ) && ! empty( $setting['border-style'] ) && in_array( $setting['border-style'], $allowed_border_styles, true ) ) {
 					$css_buffer .= 'border-style: ' . $setting['border-style'] . ';';
 				}
 
@@ -1638,7 +1639,7 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 
 				foreach ( $positions as $position ) {
 					if ( isset( $setting[ 'border-' . $position . '-width' ] ) && ! empty( $setting[ 'border-' . $position . '-width' ] ) ) {
-						$css_buffer .= 'border-' . $position . '-width: ' . $setting[ 'border-' . $position . '-width' ] . 'px;';
+						$css_buffer .= 'border-' . $position . '-width: ' . intval( $setting[ 'border-' . $position . '-width' ] ) . 'px;';
 					}
 				}
 
@@ -1646,7 +1647,7 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 			} elseif ( 'separator_color' === $type && isset( $setting['separator-color'] ) && ! empty( $setting['separator-color'] ) ) {
 
 				// Separator Color.
-				$css_buffer .= $css_selector . '::after { background-color:' . $setting['separator-color'] . '; }';
+				$css_buffer .= $css_selector . '::after { background-color:' . esc_attr( $setting['separator-color'] ) . '; }';
 			}
 
 			// Finally, return the generated CSS code.
@@ -1687,7 +1688,7 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 			foreach ( $properties as $property ) {
 
 				if ( 'inherit' !== $setting[ $property ] ) {
-					$css_buffer .= $property . ':' . $setting[ $property ] . ';';
+					$css_buffer .= $property . ':' . esc_attr( $setting[ $property ] ) . ';';
 				}
 			}
 
@@ -1695,22 +1696,22 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 			if ( 'inherit' !== $setting['font-family'] ) {
 				$font_family = prisma_core()->fonts->get_font_family( $setting['font-family'] );
 
-				$css_buffer .= 'font-family: ' . $font_family . ';';
+				$css_buffer .= 'font-family: ' . esc_attr( $font_family ) . ';';
 			}
 
 			// Letter spacing.
 			if ( ! empty( $setting['letter-spacing'] ) ) {
-				$css_buffer .= 'letter-spacing:' . $setting['letter-spacing'] . $setting['letter-spacing-unit'] . ';';
+				$css_buffer .= 'letter-spacing:' . floatval( $setting['letter-spacing'] ) . esc_attr( $setting['letter-spacing-unit'] ) . ';';
 			}
 
 			// Font size.
 			if ( ! empty( $setting['font-size-desktop'] ) ) {
-				$css_buffer .= 'font-size:' . $setting['font-size-desktop'] . $setting['font-size-unit'] . ';';
+				$css_buffer .= 'font-size:' . floatval( $setting['font-size-desktop'] ) . esc_attr( $setting['font-size-unit'] ) . ';';
 			}
 
 			// Line Height.
 			if ( ! empty( $setting['line-height-desktop'] ) ) {
-				$css_buffer .= 'line-height:' . $setting['line-height-desktop'] . ';';
+				$css_buffer .= 'line-height:' . floatval( $setting['line-height-desktop'] ) . ';';
 			}
 
 			$css_buffer = $css_buffer ? $css_selector . '{' . $css_buffer . '}' : '';
@@ -1719,11 +1720,11 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 			$tablet = '';
 
 			if ( ! empty( $setting['font-size-tablet'] ) ) {
-				$tablet .= 'font-size:' . $setting['font-size-tablet'] . $setting['font-size-unit'] . ';';
+				$tablet .= 'font-size:' . floatval( $setting['font-size-tablet'] ) . esc_attr( $setting['font-size-unit'] ) . ';';
 			}
 
 			if ( ! empty( $setting['line-height-tablet'] ) ) {
-				$tablet .= 'line-height:' . $setting['line-height-tablet'] . ';';
+				$tablet .= 'line-height:' . floatval( $setting['line-height-tablet'] ) . ';';
 			}
 
 			$tablet = ! empty( $tablet ) ? '@media only screen and (max-width: 768px) {' . $css_selector . '{' . $tablet . '} }' : '';
@@ -1734,11 +1735,11 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 			$mobile = '';
 
 			if ( ! empty( $setting['font-size-mobile'] ) ) {
-				$mobile .= 'font-size:' . $setting['font-size-mobile'] . $setting['font-size-unit'] . ';';
+				$mobile .= 'font-size:' . floatval( $setting['font-size-mobile'] ) . esc_attr( $setting['font-size-unit'] ) . ';';
 			}
 
 			if ( ! empty( $setting['line-height-mobile'] ) ) {
-				$mobile .= 'line-height:' . $setting['line-height-mobile'] . ';';
+				$mobile .= 'line-height:' . floatval( $setting['line-height-mobile'] ) . ';';
 			}
 
 			$mobile = ! empty( $mobile ) ? '@media only screen and (max-width: 480px) {' . $css_selector . '{' . $mobile . '} }' : '';

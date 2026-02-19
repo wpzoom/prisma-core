@@ -504,6 +504,10 @@ if ( ! class_exists( 'Prisma_Core_Endurance' ) ) :
 			// Security check.
 			check_ajax_referer( 'prisma_core_customizer' );
 
+			if ( ! current_user_can( 'customize' ) ) {
+				wp_die( -1, 403 );
+			}
+
 			$customizer_pointers = $this->customizer_pointers();
 
 			if ( ! empty( $customizer_pointers ) ) {

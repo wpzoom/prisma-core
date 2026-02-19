@@ -993,10 +993,10 @@ class Prisma_Core_Breadcrumb_Trail {
 	protected function add_search_items() {
 
 		if ( is_paged() ) {
-			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_search_link() ), sprintf( $this->labels['search'], get_search_query() ) );
+			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_search_link() ), sprintf( $this->labels['search'], esc_html( get_search_query() ) ) );
 
 		} elseif ( true === $this->args['show_title'] ) {
-			$this->items[] = sprintf( $this->labels['search'], get_search_query() );
+			$this->items[] = sprintf( $this->labels['search'], esc_html( get_search_query() ) );
 		}
 	}
 

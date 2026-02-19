@@ -537,7 +537,7 @@ if ( ! class_exists( 'Prisma_Core_Meta_Boxes' ) ) :
 						</label>
 					<?php } ?>
 
-					<input type="text" class="widefat" id="<?php echo esc_attr( $setting['id'] ); ?>" name="<?php echo esc_attr( $setting['id'] ); ?>" value="<?php echo wp_kses_post( $saved ); ?>" />
+					<input type="text" class="widefat" id="<?php echo esc_attr( $setting['id'] ); ?>" name="<?php echo esc_attr( $setting['id'] ); ?>" value="<?php echo esc_attr( $saved ); ?>" />
 
 				</div>
 			</div>

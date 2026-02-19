@@ -98,7 +98,7 @@ if ( ! function_exists( 'prisma_core_wc_out_of_stock_badge' ) ) :
 		global $product;
 
 		if ( ! $product->is_in_stock() ) {
-			esc_html( sprintf( apply_filters( 'prisma_core_woocommerce_out_of_stock_badge', sprintf( '<span class="onsale sold-out">%s</span>', esc_html__( 'Sold Out', 'prisma-core' ) ) ) ) );
+			echo wp_kses_post( apply_filters( 'prisma_core_woocommerce_out_of_stock_badge', sprintf( '<span class="onsale sold-out">%s</span>', esc_html__( 'Sold Out', 'prisma-core' ) ) ) );
 		}
 	}
 endif;

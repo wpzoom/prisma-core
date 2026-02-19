@@ -492,6 +492,10 @@ if ( ! class_exists( 'Prisma_Core_Dashboard' ) ) :
 			// Security check.
 			check_ajax_referer( 'prisma_core_nonce' );
 
+			if ( ! current_user_can( 'activate_plugins' ) ) {
+				wp_send_json_error( esc_html__( 'You do not have permission to activate plugins.', 'prisma-core' ) );
+			}
+
 			// Plugin data.
 			$plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) : '';
 
@@ -522,6 +526,10 @@ if ( ! class_exists( 'Prisma_Core_Dashboard' ) ) :
 
 			// Security check.
 			check_ajax_referer( 'prisma_core_nonce' );
+
+			if ( ! current_user_can( 'activate_plugins' ) ) {
+				wp_send_json_error( esc_html__( 'You do not have permission to deactivate plugins.', 'prisma-core' ) );
+			}
 
 			// Plugin data.
 			$plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) : '';

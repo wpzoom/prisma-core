@@ -62,7 +62,7 @@ if ( ! class_exists( 'Prisma_Core_Customizer_Breadcrumbs' ) ) :
 			// Hide breadcrumbs on.
 			$options['setting']['prisma_core_breadcrumbs_hide_on'] = array(
 				'transport'         => 'refresh',
-				'sanitize_callback' => 'prisma_core_no_sanitize',
+				'sanitize_callback' => 'prisma_core_sanitize_checkbox_group',
 				'control'           => array(
 					'type'        => 'prisma-core-checkbox-group',
 					'label'       => esc_html__( 'Disable On: ', 'prisma-core' ),

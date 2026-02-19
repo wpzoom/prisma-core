@@ -116,7 +116,7 @@ if ( ! class_exists( 'Prisma_Core_Customizer_Pre_Footer' ) ) :
 			// Pre Footer Hide on.
 			$options['setting']['prisma_core_pre_footer_cta_hide_on'] = array(
 				'transport'         => 'refresh',
-				'sanitize_callback' => 'prisma_core_no_sanitize',
+				'sanitize_callback' => 'prisma_core_sanitize_checkbox_group',
 				'control'           => array(
 					'type'        => 'prisma-core-checkbox-group',
 					'label'       => esc_html__( 'Disable On: ', 'prisma-core' ),

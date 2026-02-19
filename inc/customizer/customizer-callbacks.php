@@ -502,6 +502,55 @@ function prisma_core_sanitize_typography( $value, $setting ) {
 
 	$value = wp_parse_args( $value, $defaults );
 
+	// Sanitize font-family.
+	if ( isset( $value['font-family'] ) ) {
+		$value['font-family'] = sanitize_text_field( $value['font-family'] );
+	}
+
+	// Sanitize font-subsets.
+	if ( isset( $value['font-subsets'] ) && is_array( $value['font-subsets'] ) ) {
+		$value['font-subsets'] = array_map( 'sanitize_text_field', $value['font-subsets'] );
+	}
+
+	// Allowlist for font-weight.
+	$allowed_font_weight = array( '', '100', '200', '300', '400', '500', '600', '700', '800', '900', 'normal', 'bold' );
+	if ( isset( $value['font-weight'] ) && ! in_array( (string) $value['font-weight'], $allowed_font_weight, true ) ) {
+		$value['font-weight'] = $defaults['font-weight'];
+	}
+
+	// Allowlist for font-style.
+	$allowed_font_style = array( '', 'normal', 'italic', 'oblique' );
+	if ( isset( $value['font-style'] ) && ! in_array( $value['font-style'], $allowed_font_style, true ) ) {
+		$value['font-style'] = $defaults['font-style'];
+	}
+
+	// Allowlist for text-transform.
+	$allowed_text_transform = array( '', 'none', 'capitalize', 'uppercase', 'lowercase' );
+	if ( isset( $value['text-transform'] ) && ! in_array( $value['text-transform'], $allowed_text_transform, true ) ) {
+		$value['text-transform'] = $defaults['text-transform'];
+	}
+
+	// Sanitize numeric values.
+	$numeric_keys = array(
+		'font-size-desktop', 'font-size-tablet', 'font-size-mobile',
+		'letter-spacing',
+		'line-height-desktop', 'line-height-tablet', 'line-height-mobile',
+	);
+	foreach ( $numeric_keys as $key ) {
+		if ( isset( $value[ $key ] ) && '' !== $value[ $key ] ) {
+			$value[ $key ] = is_numeric( $value[ $key ] ) ? $value[ $key ] : $defaults[ $key ];
+		}
+	}
+
+	// Allowlist for unit values.
+	$allowed_units = array( '', 'px', 'em', 'rem', '%' );
+	$unit_keys     = array( 'font-size-unit', 'letter-spacing-unit', 'line-height-unit' );
+	foreach ( $unit_keys as $key ) {
+		if ( isset( $value[ $key ] ) && ! in_array( $value[ $key ], $allowed_units, true ) ) {
+			$value[ $key ] = $defaults[ $key ];
+		}
+	}
+
 	return $value;
 }
 
@@ -572,15 +621,16 @@ function prisma_core_sanitize_design_options( $value, $setting ) {
 			if ( array_key_exists( 'image', $control->display['background'] ) ) {
 
 				if ( isset( $value['background-image'] ) ) {
-					$sanitized['background-image'] = sanitize_text_field( $value['background-image'] );
+					$sanitized['background-image'] = esc_url_raw( $value['background-image'] );
 				}
 
 				if ( isset( $value['background-image-id'] ) ) {
-					$sanitized['background-image-id'] = sanitize_text_field( $value['background-image-id'] );
+					$sanitized['background-image-id'] = absint( $value['background-image-id'] );
 				}
 
+				$allowed_repeat = array( 'repeat', 'repeat-x', 'repeat-y', 'no-repeat', 'initial', 'inherit' );
 				if ( isset( $value['background-repeat'] ) ) {
-					$sanitized['background-repeat'] = sanitize_text_field( $value['background-repeat'] );
+					$sanitized['background-repeat'] = in_array( $value['background-repeat'], $allowed_repeat, true ) ? $value['background-repeat'] : 'repeat';
 				}
 
 				if ( isset( $value['background-position-x'] ) ) {
@@ -591,16 +641,18 @@ function prisma_core_sanitize_design_options( $value, $setting ) {
 					$sanitized['background-position-y'] = intval( $value['background-position-y'] );
 				}
 
+				$allowed_size = array( 'auto', 'cover', 'contain', 'initial', 'inherit' );
 				if ( isset( $value['background-size'] ) ) {
-					$sanitized['background-size'] = sanitize_text_field( $value['background-size'] );
+					$sanitized['background-size'] = in_array( $value['background-size'], $allowed_size, true ) ? $value['background-size'] : 'auto';
 				}
 
+				$allowed_attachment = array( 'scroll', 'fixed', 'local', 'initial', 'inherit' );
 				if ( isset( $value['background-attachment'] ) ) {
-					$sanitized['background-attachment'] = sanitize_text_field( $value['background-attachment'] );
+					$sanitized['background-attachment'] = in_array( $value['background-attachment'], $allowed_attachment, true ) ? $value['background-attachment'] : 'scroll';
 				}
 
 				if ( isset( $value['background-color-overlay'] ) ) {
-					$sanitized['background-color-overlay'] = sanitize_text_field( $value['background-color-overlay'] );
+					$sanitized['background-color-overlay'] = prisma_core_sanitize_color( $value['background-color-overlay'] );
 				}
 			}
 		}
@@ -674,4 +726,31 @@ function prisma_core_sanitize_sortable( $value, $setting ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Checkbox group field sanitization.
+ *
+ * @since 1.3
+ * @param mixed  $value   Value of the checkbox group field.
+ * @param object $setting Setting object.
+ */
+function prisma_core_sanitize_checkbox_group( $value, $setting ) {
+
+	if ( ! is_array( $value ) ) {
+		return array();
+	}
+
+	$control = $setting->manager->get_control( $setting->id );
+	$choices = isset( $control->choices ) ? $control->choices : array();
+
+	$sanitized = array();
+	foreach ( $value as $key ) {
+		$key = sanitize_key( $key );
+		if ( array_key_exists( $key, $choices ) ) {
+			$sanitized[] = $key;
+		}
+	}
+
+	return $sanitized;
 }

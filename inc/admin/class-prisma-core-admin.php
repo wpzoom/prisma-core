@@ -151,7 +151,7 @@ if ( ! class_exists( 'Prisma_Core_Admin' ) ) :
 			);
 
 			$strings = array(
-				'ajaxurl'       => admin_url( 'admin-ajax.php' ),
+				'ajaxurl'       => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'wpnonce'       => wp_create_nonce( 'prisma_core_nonce' ),
 				'texts'         => $texts,
 				'color_pallete' => array( '#3857f1', '#06cca6', '#2c2e3a', '#e4e7ec', '#f0b849', '#ffffff', '#000000' ),

@@ -121,7 +121,7 @@ if ( ! function_exists( 'prisma_core_get_the_title' ) ) {
 			} elseif ( is_search() ) {
 				// Search page - title always display.
 				/* translators: 1: search string */
-				$title = apply_filters( 'prisma_core_search_page_title', sprintf( __( 'Search results for: %s', 'prisma-core' ), get_search_query() ) );
+				$title = apply_filters( 'prisma_core_search_page_title', sprintf( __( 'Search results for: %s', 'prisma-core' ), esc_html( get_search_query() ) ) );
 			} elseif ( class_exists( 'WooCommerce' ) && is_shop() ) {
 				// Woocommerce.
 				$title = woocommerce_page_title( false );
@@ -1007,7 +1007,7 @@ function prisma_core_masthead_atts( $atts = array(), $post_id = '' ) {
 	if ( is_singular( 'post' ) && 'in-page-header' === prisma_core_option( 'single_title_position' ) && prisma_core_is_header_transparent( $post_id ) ) {
 		if ( prisma_core_show_post_thumbnail( $post_id ) && prisma_core_single_post_displays( 'thumb' ) ) {
 			$atts['style']  = isset( $atts['style'] ) ? $atts['style'] : '';
-			$atts['style'] .= 'background-image: url(' . wp_get_attachment_image_url( get_post_thumbnail_id( $post_id ), 'full' ) . ');';
+			$atts['style'] .= 'background-image: url(' . esc_url( wp_get_attachment_image_url( get_post_thumbnail_id( $post_id ), 'full' ) ) . ');';
 		}
 	}
 
@@ -1123,7 +1123,7 @@ function prisma_core_page_header_atts( $atts = array(), $post_id = '' ) {
 	if ( is_singular( 'post' ) && 'in-page-header' === prisma_core_option( 'single_title_position' ) && ! prisma_core_is_header_transparent( $post_id ) ) {
 		if ( prisma_core_show_post_thumbnail( $post_id ) && prisma_core_single_post_displays( 'thumb' ) ) {
 			$atts['style']  = isset( $atts['style'] ) ? $atts['style'] : '';
-			$atts['style'] .= 'background-image: url(' . wp_get_attachment_image_url( get_post_thumbnail_id( $post_id ), 'full' ) . ');';
+			$atts['style'] .= 'background-image: url(' . esc_url( wp_get_attachment_image_url( get_post_thumbnail_id( $post_id ), 'full' ) ) . ');';
 		}
 	}
 

@@ -374,7 +374,7 @@ if ( ! class_exists( 'Prisma_Core_Customizer' ) ) :
 					'default'           => prisma_core()->options->get_default( $id ),
 					'type'              => prisma_core_get_prop( $setting, 'type' ),
 					'transport'         => prisma_core_get_prop( $setting, 'transport' ),
-					'sanitize_callback' => prisma_core_get_prop( $setting, 'sanitize_callback', 'prisma_core_no_sanitize' ),
+					'sanitize_callback' => prisma_core_get_prop( $setting, 'sanitize_callback', 'sanitize_text_field' ),
 				)
 			);
 
@@ -532,7 +532,7 @@ if ( ! class_exists( 'Prisma_Core_Customizer' ) ) :
 			 * Localize JS variables
 			 */
 			$prisma_core_customizer_localized = array(
-				'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
+				'ajaxurl'                 => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'wpnonce'                 => wp_create_nonce( 'prisma_core_customizer' ),
 				'color_palette'           => array( '#ffffff', '#000000', '#e4e7ec', '#3857F1', '#f7b40b', '#e04b43', '#30373e', '#8a63d4' ),
 				'preview_url_for_section' => $this->get_preview_urls_for_section(),

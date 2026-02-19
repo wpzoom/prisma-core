@@ -80,7 +80,7 @@ if ( ! class_exists( 'Prisma_Core_Customizer_Sticky_Header' ) ) :
 			// Hide sticky header on.
 			$options['setting']['prisma_core_sticky_header_hide_on'] = array(
 				'transport'         => 'refresh',
-				'sanitize_callback' => 'prisma_core_no_sanitize',
+				'sanitize_callback' => 'prisma_core_sanitize_checkbox_group',
 				'control'           => array(
 					'type'        => 'prisma-core-checkbox-group',
 					'label'       => esc_html__( 'Hide on: ', 'prisma-core' ),

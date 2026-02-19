@@ -154,12 +154,16 @@ function prisma_core_dismiss_notice() {
 
 	check_ajax_referer( 'prisma_core_dismiss_notice' );
 
+	if ( ! current_user_can( 'edit_theme_options' ) ) {
+		wp_die( -1, 403 );
+	}
+
 	if ( ! isset( $_POST['msgid'] ) ) {
 		die;
 	}
 
 	$message_id = sanitize_text_field( wp_unslash( $_POST['msgid'] ) );
-	$expires    = isset( $post['expires'] ) ? intval( $post['expires'] ) : 0;
+	$expires    = isset( $_POST['expires'] ) ? intval( $_POST['expires'] ) : 0;
 
 	$message              = (array) get_transient( 'prisma_core_notice_' . $message_id );
 	$message['time']      = time();

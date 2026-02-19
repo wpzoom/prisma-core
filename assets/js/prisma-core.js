@@ -1150,10 +1150,10 @@ var prismaCoreTriggerEvent = function (el, typeArg) {
 
 			if (document.body.classList.contains('comments-visible')) {
 				document.body.classList.remove('comments-visible');
-				document.getElementById('prisma-core-comments-toggle').querySelector('span').innerHTML = prisma_core_vars.strings.comments_toggle_show;
+				document.getElementById('prisma-core-comments-toggle').querySelector('span').textContent = prisma_core_vars.strings.comments_toggle_show;
 			} else {
 				document.body.classList.add('comments-visible');
-				document.getElementById('prisma-core-comments-toggle').querySelector('span').innerHTML = prisma_core_vars.strings.comments_toggle_hide;
+				document.getElementById('prisma-core-comments-toggle').querySelector('span').textContent = prisma_core_vars.strings.comments_toggle_hide;
 			}
 		};
 

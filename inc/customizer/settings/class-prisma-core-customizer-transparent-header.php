@@ -101,7 +101,7 @@ if ( ! class_exists( 'Prisma_Core_Customizer_Transparent_Header' ) ) :
 			// Transparent header display on.
 			$options['setting']['prisma_core_tsp_header_disable_on'] = array(
 				'transport'         => 'refresh',
-				'sanitize_callback' => 'prisma_core_no_sanitize',
+				'sanitize_callback' => 'prisma_core_sanitize_checkbox_group',
 				'control'           => array(
 					'type'        => 'prisma-core-checkbox-group',
 					'label'       => esc_html__( 'Disable On: ', 'prisma-core' ),
