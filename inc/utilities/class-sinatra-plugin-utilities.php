@@ -272,13 +272,6 @@ class Sinatra_Plugin_Utilities {
 				'desc'  => 'The Sinatra Core plugin adds extra functionality to Sinatra theme, such as Demo Library, widgets, custom blocks and more.',
 				'thumb' => 'https://ps.w.org/sinatra-core/assets/icon-256x256.png',
 			),
-			'socialsnap'   => array(
-				'name'      => 'Social Snap',
-				'slug'      => 'socialsnap',
-				'desc'      => 'Social Snap is the leading WordPress social media plugin that helps you drive more traffic and increase engagement.',
-				'endurance' => false,
-				'thumb'     => 'https://ps.w.org/socialsnap/assets/icon-256x256.png',
-			),
 		);
 
 		return apply_filters( 'sinatra_recommended_plugins', $plugins );
