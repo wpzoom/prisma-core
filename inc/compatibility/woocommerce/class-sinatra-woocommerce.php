@@ -193,6 +193,12 @@ if ( ! class_exists( 'Sinatra_Woocommerce' ) ) :
 
 				// Product gallery thumbnail columns.
 				add_filter( 'woocommerce_product_thumbnails_columns', array( $this, 'product_thumbnails_columns' ) );
+
+				// Cross-sells heading text (replaces template override).
+				add_filter( 'woocommerce_product_cross_sells_products_heading', array( $this, 'cross_sells_heading' ) );
+
+				// Add si-entry class to single product summary (replaces template override).
+				add_filter( 'woocommerce_post_class', array( $this, 'single_product_post_class' ), 10, 2 );
 			}
 
 			// Enqueue styles.
@@ -935,6 +941,32 @@ if ( ! class_exists( 'Sinatra_Woocommerce' ) ) :
 		}
 
 		/**
+		 * Cross-sells heading text.
+		 *
+		 * @since  1.4.0
+		 * @param  string $heading Cross-sells heading.
+		 * @return string
+		 */
+		public function cross_sells_heading( $heading ) {
+			return __( 'You may be interested in', 'sinatra' );
+		}
+
+		/**
+		 * Add si-entry class to single product pages via woocommerce_post_class filter.
+		 *
+		 * @since  1.4.0
+		 * @param  array      $classes Post classes.
+		 * @param  WC_Product $product Product object.
+		 * @return array
+		 */
+		public function single_product_post_class( $classes, $product ) {
+			if ( is_product() ) {
+				$classes[] = 'si-entry';
+			}
+			return $classes;
+		}
+
+		/**
 		 * Related products heading on single product pages.
 		 *
 		 * @since  1.0.0
@@ -1210,11 +1242,11 @@ if ( ! class_exists( 'Sinatra_Woocommerce' ) ) :
 			 */
 
 			// Headings.
-			$css .= sinatra_dynamic_styles()->get_typography_field_css( '.woocommerce div.product h1.product_title, .woocommerce #reviews #comments h2, .woocommerce .cart_totals h2, .woocommerce .cross-sells > h4, .woocommerce #reviews #respond .comment-reply-title', 'headings_font' );
+			$css .= sinatra_dynamic_styles()->get_typography_field_css( '.woocommerce div.product h1.product_title, .woocommerce #reviews #comments h2, .woocommerce .cart_totals h2, .woocommerce .cross-sells > h2, .woocommerce #reviews #respond .comment-reply-title', 'headings_font' );
 
 			$css .= sinatra_dynamic_styles()->get_typography_field_css( '.woocommerce div.product h1.product_title', 'h2_font' );
 			$css .= sinatra_dynamic_styles()->get_typography_field_css( '.woocommerce #reviews #comments h2', 'h3_font' );
-			$css .= sinatra_dynamic_styles()->get_typography_field_css( '.woocommerce .cart_totals h2, .woocommerce .cross-sells > h4, .woocommerce #reviews #respond .comment-reply-title', 'h4_font' );
+			$css .= sinatra_dynamic_styles()->get_typography_field_css( '.woocommerce .cart_totals h2, .woocommerce .cross-sells > h2, .woocommerce #reviews #respond .comment-reply-title', 'h4_font' );
 
 			return $css;
 		}

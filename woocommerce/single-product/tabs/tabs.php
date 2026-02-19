@@ -10,13 +10,13 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * Sinatra changes: added sinatra-container wrappers and si-fw-section. Added span inside tabs a elements,
- * because of underline animation. Added .si-entry to woocommerce-Tabs-panel (only if key === 'description' ).
+ * Sinatra changes: added si-fw-section class, si-container wrappers,
+ * span inside tab links for underline animation,
+ * si-entry class on description panel.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  WooThemes
- * @package WooCommerce/Templates
- * @version 3.8.0
+ * @see     https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 9.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,26 +38,21 @@ if ( ! empty( $product_tabs ) ) : ?>
 		<ul class="tabs wc-tabs" role="tablist">
 			<div class="si-container">
 				<?php foreach ( $product_tabs as $key => $product_tab ) : ?>
-					<li class="<?php echo esc_attr( $key ); ?>_tab" id="tab-title-<?php echo esc_attr( $key ); ?>" role="tab" aria-controls="tab-<?php echo esc_attr( $key ); ?>">
-						<a href="#tab-<?php echo esc_attr( $key ); ?>"><span><?php echo esc_html( apply_filters( 'woocommerce_product_' . $key . '_tab_title', esc_html( $product_tab['title'] ), $key ) ); ?></span></a>
+					<li role="presentation" class="<?php echo esc_attr( $key ); ?>_tab" id="tab-title-<?php echo esc_attr( $key ); ?>">
+						<a href="#tab-<?php echo esc_attr( $key ); ?>" role="tab" aria-controls="tab-<?php echo esc_attr( $key ); ?>">
+							<span><?php echo wp_kses_post( apply_filters( 'woocommerce_product_' . $key . '_tab_title', $product_tab['title'], $key ) ); ?></span>
+						</a>
 					</li>
 				<?php endforeach; ?>
 			</div>
 		</ul>
-		<?php
-		foreach ( $product_tabs as $key => $product_tab ) :
-			$sinatra_classes = 'description' === $key ? ' si-entry' : '';
-			?>
-			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--
-			<?php
-			echo esc_attr( $key );
-			echo esc_attr( $sinatra_classes );
-			?>
-			 panel entry-content wc-tab" id="tab-<?php echo esc_attr( $key ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( $key ); ?>">
+		<?php foreach ( $product_tabs as $key => $product_tab ) : ?>
+			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( $key ); ?><?php echo 'description' === $key ? ' si-entry' : ''; ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( $key ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( $key ); ?>">
 				<div class="si-container">
 					<?php
 					if ( isset( $product_tab['callback'] ) ) {
-						call_user_func( $product_tab['callback'], $key, $product_tab ); }
+						call_user_func( $product_tab['callback'], $key, $product_tab );
+					}
 					?>
 				</div>
 			</div>

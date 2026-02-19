@@ -12,11 +12,12 @@
  *
  * Sinatra changes: wrapped meta titles with span.si-woo-meta-title.
  *
- * @see         https://docs.woocommerce.com/document/template-structure/
- * @author      WooThemes
- * @package     WooCommerce/Templates
- * @version     3.0.0
+ * @see         https://woocommerce.com/document/template-structure/
+ * @package     WooCommerce\Templates
+ * @version     9.7.0
  */
+
+use Automattic\WooCommerce\Enums\ProductType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -28,15 +29,15 @@ global $product;
 
 	<?php do_action( 'woocommerce_product_meta_start' ); ?>
 
-	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
+	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( ProductType::VARIABLE ) ) ) : ?>
 
-		<span class="sku_wrapper"><span class="si-woo-meta-title"><?php esc_html_e( 'SKU:', 'sinatra' ); ?></span> <span class="sku"><?php echo ( $sku = $product->get_sku() ) ? esc_html( $sku ) : esc_html__( 'N/A', 'sinatra' ); // phpcs:ignore ?></span></span>
+		<span class="sku_wrapper"><span class="si-woo-meta-title"><?php esc_html_e( 'SKU:', 'woocommerce' ); ?></span> <span class="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : esc_html__( 'N/A', 'woocommerce' ); ?></span></span>
 
 	<?php endif; ?>
 
-	<?php echo wc_get_product_category_list( $product->get_id(), ', ', '<span class="posted_in"><span class="si-woo-meta-title">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'sinatra' ) . '</span> ', '</span>' ); // phpcs:ignore ?>
+	<?php echo wc_get_product_category_list( $product->get_id(), ', ', '<span class="posted_in"><span class="si-woo-meta-title">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'woocommerce' ) . '</span> ', '</span>' ); ?>
 
-	<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as"><span class="si-woo-meta-title">' . _n( 'Tag:', 'Tags:', count( $product->get_tag_ids() ), 'sinatra' ) . '</span> ', '</span>' ); // phpcs:ignore ?>
+	<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as"><span class="si-woo-meta-title">' . _n( 'Tag:', 'Tags:', count( $product->get_tag_ids() ), 'woocommerce' ) . '</span> ', '</span>' ); ?>
 
 	<?php do_action( 'woocommerce_product_meta_end' ); ?>
 
