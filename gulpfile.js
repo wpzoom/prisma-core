@@ -5,6 +5,8 @@ const autoprefixer = require( 'autoprefixer' );
 const cleanCSS = require( 'gulp-clean-css' );
 const terser = require( 'gulp-terser' );
 const rename = require( 'gulp-rename' );
+const fs = require( 'fs' );
+const path = require( 'path' );
 
 // ─── Paths ────────────────────────────────────────────────────────────
 
@@ -126,8 +128,142 @@ function watchFiles() {
 	watch( paths.controlJs, controlJs );
 }
 
+// ─── Version bump ────────────────────────────────────────────────────
+// Usage: gulp version-bump --ver=1.5.0
+
+function versionBump( cb ) {
+	const arg = process.argv;
+	const verFlag = arg.find( ( a ) => a.startsWith( '--ver=' ) );
+
+	if ( ! verFlag ) {
+		console.error( 'Usage: gulp version-bump --ver=x.y.z' );
+		return cb( new Error( 'Missing --ver argument' ) );
+	}
+
+	const newVer = verFlag.split( '=' )[ 1 ];
+
+	if ( ! /^\d+\.\d+\.\d+$/.test( newVer ) ) {
+		return cb( new Error( 'Version must be in semver format: x.y.z' ) );
+	}
+
+	// 1. package.json
+	const pkgPath = path.resolve( 'package.json' );
+	const pkg = JSON.parse( fs.readFileSync( pkgPath, 'utf8' ) );
+	pkg.version = newVer;
+	fs.writeFileSync( pkgPath, JSON.stringify( pkg, null, '  ' ) + '\n' );
+
+	// 2. style.css — "Version: x.y.z"
+	replaceInFile(
+		'style.css',
+		/^Version:\s*.+$/m,
+		'Version: ' + newVer
+	);
+
+	// 3. functions.php — "$version = 'x.y.z'"
+	replaceInFile(
+		'functions.php',
+		/\$version\s*=\s*'[^']*'/,
+		"$version = '" + newVer + "'"
+	);
+
+	// 4. readme.txt — "Stable tag: x.y.z"
+	replaceInFile(
+		'readme.txt',
+		/^Stable tag:\s*.+$/m,
+		'Stable tag: ' + newVer
+	);
+
+	console.log( 'Version bumped to ' + newVer );
+	cb();
+}
+
+function replaceInFile( filePath, search, replacement ) {
+	let content = fs.readFileSync( filePath, 'utf8' );
+	content = content.replace( search, replacement );
+	fs.writeFileSync( filePath, content );
+}
+
+// ─── Generate README.md from readme.txt ──────────────────────────────
+
+function readme( cb ) {
+	let txt = fs.readFileSync( 'readme.txt', 'utf8' );
+
+	// Convert WordPress readme headings to Markdown.
+	// === Title === → # Title #
+	txt = txt.replace( /^=== (.+?) ===\s*$/gm, '# $1 #' );
+	// == Section == → ## Section ##
+	txt = txt.replace( /^== (.+?) ==\s*$/gm, '## $1 ##' );
+	// = Subsection = → ### Subsection ###
+	txt = txt.replace( /^= (.+?) =\s*$/gm, '### $1 ###' );
+
+	// Convert "Contributors: a, b" to linked format.
+	txt = txt.replace(
+		/^(Contributors:\s*)(.+)$/m,
+		function ( _match, prefix, names ) {
+			const linked = names.split( ',' ).map( ( n ) => {
+				n = n.trim();
+				return '[' + n + '](https://github.com/' + n + ')';
+			} ).join( ', ' );
+			return '**' + prefix.trim() + '** ' + linked + '  ';
+		}
+	);
+
+	// Format metadata as "**Key:** value  " (bold key, trailing double-space for line break).
+	const metaKeys = [
+		'Tags',
+		'Requires at least',
+		'Tested up to',
+		'Requires PHP',
+		'License',
+		'License URI',
+	];
+	metaKeys.forEach( function ( key ) {
+		const re = new RegExp( '^' + key + ':\\s*(.+)$', 'm' );
+		txt = txt.replace( re, '**' + key + ':** $1  ' );
+	} );
+
+	// Convert "Stable tag" to "Version" for GitHub display.
+	txt = txt.replace( /^Stable tag:\s*(.+)$/m, '**Version:** $1  ' );
+
+	// WordPress » → &raquo; (already works in GH markdown).
+	txt = txt.replace( / » /g, ' &raquo; ' );
+
+	// Rename "Resources" to "Copyright" and add license preamble.
+	txt = txt.replace(
+		'## Resources ##',
+		'## Copyright ##\n\n' +
+		'Sinatra WordPress Theme, Copyright 2025 ciorici\n' +
+		'Originally created by Sinatra Team (https://sinatrawp.com).\n' +
+		'Sinatra is distributed under the terms of the GNU GPL.\n\n' +
+		'Sinatra bundles the following third-party resources:'
+	);
+
+	// Custom header — matches the Inspiro pattern.
+	const customHeader =
+		'# Sinatra #\n' +
+		'### A lightweight and highly customizable multi-purpose theme that makes it easy for anyone to create their perfect website.\n\n' +
+		'Community-maintained fork of the original Sinatra theme by [Sinatra Team](https://sinatrawp.com). ' +
+		'Includes security fixes, PHP 8.2+ compatibility, WordPress 6.9+ support, and updated WooCommerce templates.\n\n' +
+		'[Download Latest Release](https://github.com/ciorici/sinatra/releases) ' +
+		'&nbsp;&middot;&nbsp; ' +
+		'[View on WordPress.org](https://wordpress.org/themes/flavor/)\n\n' +
+		'![Sinatra Theme Screenshot](screenshot.jpg)\n\n';
+
+	// Replace everything before "**Contributors:" with custom header.
+	const contribIndex = txt.indexOf( '**Contributors:' );
+	if ( contribIndex !== -1 ) {
+		txt = customHeader + txt.substring( contribIndex );
+	}
+
+	fs.writeFileSync( 'README.md', txt );
+	console.log( 'README.md generated from readme.txt' );
+	cb();
+}
+
 // ─── Exports ──────────────────────────────────────────────────────────
 
 exports.build = build;
 exports.watch = series( build, watchFiles );
+exports.readme = readme;
+exports[ 'version-bump' ] = series( versionBump, readme );
 exports.default = build;
