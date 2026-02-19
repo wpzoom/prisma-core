@@ -147,16 +147,16 @@ if ( ! class_exists( 'Prisma_Core_Dashboard' ) ) :
 							<div class="prisma-core-buttons plugins">
 
 								<?php
-								if ( file_exists( WP_PLUGIN_DIR . '/sinatra-core/sinatra-core.php' ) && is_plugin_inactive( 'sinatra-core/sinatra-core.php' ) ) {
+								if ( file_exists( WP_PLUGIN_DIR . '/prisma-companion/prisma-companion.php' ) && is_plugin_inactive( 'prisma-companion/prisma-companion.php' ) ) {
 									$class       = 'pr-btn secondary';
-									$button_text = __( 'Activate Prisma Core Core', 'prisma-core' );
+									$button_text = __( 'Activate Prisma Companion', 'prisma-core' );
 									$link        = '#';
-									$data        = ' data-plugin="sinatra-core" data-action="activate" data-redirect="' . esc_url( admin_url( 'admin.php?page=prisma-core-demo-library' ) ) . '"';
-								} elseif ( ! file_exists( WP_PLUGIN_DIR . '/sinatra-core/sinatra-core.php' ) ) {
+									$data        = ' data-plugin="prisma-companion" data-action="activate" data-redirect="' . esc_url( admin_url( 'admin.php?page=prisma-core-demo-library' ) ) . '"';
+								} elseif ( ! file_exists( WP_PLUGIN_DIR . '/prisma-companion/prisma-companion.php' ) ) {
 									$class       = 'pr-btn secondary';
-									$button_text = __( 'Install Prisma Core Core', 'prisma-core' );
+									$button_text = __( 'Install Prisma Companion', 'prisma-core' );
 									$link        = '#';
-									$data        = ' data-plugin="sinatra-core" data-action="install" data-redirect="' . esc_url( admin_url( 'admin.php?page=prisma-core-demo-library' ) ) . '"';
+									$data        = ' data-plugin="prisma-companion" data-action="install" data-redirect="' . esc_url( admin_url( 'admin.php?page=prisma-core-demo-library' ) ) . '"';
 								} else {
 									$class       = 'pr-btn secondary active';
 									$button_text = __( 'Browse Demos', 'prisma-core' );

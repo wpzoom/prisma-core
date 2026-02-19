@@ -265,7 +265,7 @@ function readme( cb ) {
 //
 // One-time task that renames the Prisma Core theme to a new name.
 // Supports CamelCase multi-word names: PrismaCore → slug "prisma-core".
-// Does NOT touch the sinatra-core plugin (rename that separately).
+// Does NOT touch the prisma-companion plugin (rename that separately).
 // Review the result with `git diff`.
 
 function themeRename( cb ) {
@@ -319,17 +319,17 @@ function themeRename( cb ) {
 	const excludedDirs = [ 'node_modules', '.git', 'vendor' ];
 
 	// ── Text replacements ──
-	// Phase 1: Tokenize sinatra-core PLUGIN references (protect from rename).
+	// Phase 1: Tokenize prisma-companion PLUGIN references (protect from rename).
 	// Phase 2: Rename theme identifiers.
 	// Phase 3: Restore plugin tokens.
 
 	const replacements = [
 		// ── Phase 1: Tokenize plugin references ──
-		[ /\bPRISMA_CORE_CORE_/g, 'SINATRA_CORE_' ],
-		[ /\bPrisma Core_Core_/g, 'Sinatra_Core_' ],
-		[ /\bprisma-core_core_/g, 'sinatra_core_' ],
-		[ /\bprisma-core_core\b/g, 'sinatra_core' ],
-		[ /sinatra-core/g, 'sinatra-core' ],
+		[ /\bPRISMA_COMPANION_/g, '{{__PC_CONST__}}' ],
+		[ /\bPrisma_Companion_/g, '{{__PC_CLASS__}}' ],
+		[ /\bprisma_companion_/g, '{{__PC_FUNC__}}' ],
+		[ /\bprisma_companion\b/g, '{{__PC_NAME__}}' ],
+		[ /prisma-companion/g, '{{__PC_SLUG__}}' ],
 
 		// ── Phase 2: Theme rename ──
 		// PHP constants.
@@ -363,11 +363,11 @@ function themeRename( cb ) {
 		[ /PRISMA_CORE/g, constPrefix ],
 
 		// ── Phase 3: Restore plugin tokens ──
-		[ /\{\{__PC_CONST__\}\}/g, 'SINATRA_CORE_' ],
-		[ /\{\{__PC_CLASS__\}\}/g, 'Sinatra_Core_' ],
-		[ /\{\{__PC_FUNC__\}\}/g, 'sinatra_core_' ],
-		[ /\{\{__PC_NAME__\}\}/g, 'sinatra_core' ],
-		[ /\{\{__PC_SLUG__\}\}/g, 'sinatra-core' ],
+		[ /\{\{__PC_CONST__\}\}/g, 'PRISMA_COMPANION_' ],
+		[ /\{\{__PC_CLASS__\}\}/g, 'Prisma_Companion_' ],
+		[ /\{\{__PC_FUNC__\}\}/g, 'prisma_companion_' ],
+		[ /\{\{__PC_NAME__\}\}/g, 'prisma_companion' ],
+		[ /\{\{__PC_SLUG__\}\}/g, 'prisma-companion' ],
 	];
 
 	// ── Helper: walk directory tree ──
@@ -479,7 +479,7 @@ function themeRename( cb ) {
 	}
 
 	console.log( '\nDone! Review changes with: git diff' );
-	console.log( 'Note: sinatra-core plugin was NOT renamed — do that separately.' );
+	console.log( 'Note: prisma-companion plugin was NOT renamed — do that separately.' );
 	cb();
 }
 

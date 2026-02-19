@@ -266,11 +266,11 @@ class Prisma_Core_Plugin_Utilities {
 	public function get_recommended_plugins() {
 
 		$plugins = array(
-			'sinatra-core' => array(
-				'name'  => 'Prisma Core Core',
-				'slug'  => 'sinatra-core',
-				'desc'  => 'The Prisma Core Core plugin adds extra functionality to Prisma Core theme, such as Demo Library, widgets, custom blocks and more.',
-				'thumb' => 'https://ps.w.org/sinatra-core/assets/icon-256x256.png',
+			'prisma-companion' => array(
+				'name'  => 'Prisma Companion',
+				'slug'  => 'prisma-companion',
+				'desc'  => 'The Prisma Companion plugin adds extra functionality to Prisma Core theme, such as Demo Library, widgets, custom blocks and more.',
+				'thumb' => 'https://ps.w.org/prisma-companion/assets/icon-256x256.png',
 			),
 		);
 

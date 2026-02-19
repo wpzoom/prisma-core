@@ -1619,7 +1619,7 @@
 				'.pr-hamburger:hover .hamburger-label, ' +
 				'.single #main .post-nav a:hover, ' +
 				'#prisma-core-topbar .pr-topbar-widget__text .pr-icon, ' +
-				'.sinatra-core-custom-list-widget .pr-widget-icon {' +
+				'.prisma-companion-custom-list-widget .pr-widget-icon {' +
 				'color: ' +
 				newval +
 				';' +

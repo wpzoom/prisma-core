@@ -123,18 +123,6 @@ final class Prisma_Core {
 			define( 'PRISMA_CORE_THEME_PATH', get_parent_theme_file_path() );
 		}
 
-		// Backward-compatible aliases for sinatra-core plugin.
-		if ( ! defined( 'SINATRA_THEME_VERSION' ) ) {
-			define( 'SINATRA_THEME_VERSION', $this->version );
-		}
-
-		if ( ! defined( 'SINATRA_THEME_URI' ) ) {
-			define( 'SINATRA_THEME_URI', PRISMA_CORE_THEME_URI );
-		}
-
-		if ( ! defined( 'SINATRA_THEME_PATH' ) ) {
-			define( 'SINATRA_THEME_PATH', PRISMA_CORE_THEME_PATH );
-		}
 	}
 
 	/**

@@ -4043,22 +4043,22 @@ body:not(.pr-has-sidebar):not(.pr-single-title-in-content):not(.comments-open) #
   margin-top: 0;
 }
 
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ul,
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ol {
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ul,
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ol {
   list-style: none;
   margin-left: 0;
   margin-right: 0;
 }
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ul ul,
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ul ol,
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ol ul,
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ol ol {
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ul ul,
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ul ol,
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ol ul,
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ol ol {
   margin: 1em 0 1em 2em;
 }
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ul ul:last-child,
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ul ol:last-child,
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ol ul:last-child,
-.pr-widget.widget:not(.widget_text):not(.sinatra-core-custom-list-widget) ol ol:last-child {
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ul ul:last-child,
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ul ol:last-child,
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ol ul:last-child,
+.pr-widget.widget:not(.widget_text):not(.prisma-companion-custom-list-widget) ol ol:last-child {
   margin-bottom: 0;
 }
 .pr-widget.widget_text ul,
@@ -4273,7 +4273,7 @@ body:not(.pr-has-sidebar):not(.pr-single-title-in-content):not(.comments-open) #
           mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M24.023 15.421c-0.801 0-1.335 0.534-1.335 1.335v8.008c0 0.801-0.534 1.335-1.335 1.335h-14.681c-0.801 0-1.335-0.534-1.335-1.335v-14.681c0-0.801 0.534-1.335 1.335-1.335h8.008c0.801 0 1.335-0.534 1.335-1.335s-0.534-1.335-1.335-1.335h-8.008c-2.269 0-4.004 1.735-4.004 4.004v14.681c0 2.269 1.735 4.004 4.004 4.004h14.681c2.269 0 4.004-1.735 4.004-4.004v-8.008c0-0.801-0.534-1.335-1.335-1.335zM29.229 2.876c-0.133-0.267-0.4-0.534-0.667-0.667-0.133-0.133-0.4-0.133-0.534-0.133h-8.008c-0.801 0-1.335 0.534-1.335 1.335s0.534 1.335 1.335 1.335h4.805l-12.412 12.412c-0.534 0.534-0.534 1.335 0 1.868 0.267 0.267 0.534 0.4 0.934 0.4s0.667-0.133 0.934-0.4l12.412-12.412v4.805c0 0.801 0.534 1.335 1.335 1.335s1.335-0.534 1.335-1.335v-8.008c0-0.133 0-0.4-0.133-0.534z"></path></svg>');
 }
 
-.prisma-core-sidebar-style-3 #secondary .sinatra-core-social-links-widget {
+.prisma-core-sidebar-style-3 #secondary .prisma-companion-social-links-widget {
   padding-bottom: 15px;
 }
 

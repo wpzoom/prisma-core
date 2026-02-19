@@ -232,7 +232,7 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 				}
 
 				.content-area a:not(.pr-btn):not(.wp-block-button__link),
-				#secondary .sinatra-core-custom-list-widget .pr-entry a:not(.pr-btn),
+				#secondary .prisma-companion-custom-list-widget .pr-entry a:not(.pr-btn),
 				#secondary a:not(.pr-btn):hover,
 				.pr-header-widgets .pr-header-widget.prisma-core-active .pr-icon.pr-search,
 				.prisma-core-logo .site-title a:hover,
@@ -904,7 +904,7 @@ if ( ! class_exists( 'Prisma_Core_Dynamic_Styles' ) ) :
 			// Content link hover color.
 			$css .= '
 				.content-area a:not(.pr-btn):not(.wp-block-button__link):hover,
-				#secondary .sinatra-core-custom-list-widget .pr-entry a:not(.pr-btn):hover,
+				#secondary .prisma-companion-custom-list-widget .pr-entry a:not(.pr-btn):hover,
 				.pr-breadcrumbs a:hover {
 					color: ' . prisma_core_option( 'content_link_hover_color' ) . ';
 				}
