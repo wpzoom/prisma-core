@@ -16,13 +16,8 @@
 
 .sinatra-heading-wrapper {
   position: relative;
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   background-color: #ffffff;
   color: #555d66;
   margin: -16px -12px -2px -12px;
@@ -60,13 +55,8 @@
 .sinatra-heading-wrapper .sinatra-heading-toggle label {
   pointer-events: none;
   margin-left: 6px;
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   border-radius: 50%;
 }
 .sinatra-heading-wrapper .sinatra-heading-toggle label:before {
@@ -85,7 +75,5 @@
   display: none;
 }
 .sinatra-heading-wrapper .sinatra-heading-toggle input[type=checkbox]:checked + label {
-  -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
 }

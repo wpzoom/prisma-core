@@ -5,17 +5,11 @@
  * Import configuration file with variables.
  */
 .si-checkbox {
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-weight: 500;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   font-size: 14px;
   cursor: default;
@@ -38,10 +32,8 @@
   width: 20px;
   min-width: 20px;
   opacity: 0.5;
-  -webkit-transition: all 0.26s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.26s cubic-bezier(0.25, 0.8, 0.25, 1);
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 .si-checkbox input[type=checkbox]:before {
   position: absolute;
@@ -54,14 +46,10 @@
   height: 10px;
   border: solid #FFF;
   border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg) scale(0);
-      -ms-transform: rotate(45deg) scale(0);
-          transform: rotate(45deg) scale(0);
+  transform: rotate(45deg) scale(0);
   z-index: 2;
-  -webkit-transition: all 0.26s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.26s cubic-bezier(0.25, 0.8, 0.25, 1);
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .si-checkbox input[type=checkbox]:disabled:not(:checked) {
   border-color: currentColor !important;
@@ -79,9 +67,7 @@
 }
 .si-checkbox input[type=checkbox]:checked:before {
   opacity: 1;
-  -webkit-transform: rotate(45deg) scale(1);
-      -ms-transform: rotate(45deg) scale(1);
-          transform: rotate(45deg) scale(1);
+  transform: rotate(45deg) scale(1);
 }
 .si-checkbox input[type=checkbox]:checked:disabled {
   opacity: 0.65;
@@ -92,18 +78,11 @@
   pointer-events: none;
 }
 .si-checkbox .si-label {
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   cursor: pointer;
   padding-left: 11px;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  flex-grow: 1;
 }
 .si-checkbox .si-label .sinatra-info-icon {
   margin-left: auto;

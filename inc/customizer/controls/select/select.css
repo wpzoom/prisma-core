@@ -15,13 +15,8 @@
   display: block;
 }
 .sinatra-select-wrapper .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   background-color: #eee;
   border-color: #ddd;
   border-radius: 20px;

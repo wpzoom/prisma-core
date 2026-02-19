@@ -11,14 +11,9 @@
   padding-top: 6px;
   display: none;
   width: 100%;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  align-items: flex-start;
 }
 .customize-control-sinatra-spacing .sinatra-control-wrap > ul.active {
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 .customize-control-sinatra-spacing .sinatra-control-wrap .reset-defaults {
@@ -43,8 +38,7 @@
   border-left-width: 0;
   border-radius: 0;
   text-align: center;
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  box-shadow: none !important;
 }
 .customize-control-sinatra-spacing .spacing-control-wrap input[type=number]::-webkit-inner-spin-button,
 .customize-control-sinatra-spacing .spacing-control-wrap input[type=number]::-webkit-outer-spin-button {

@@ -2,24 +2,14 @@
 /* Customizer radio image control style
 /*****************************************/
 .customize-control-sinatra-radio-image .sinatra-radio-image-choices {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   margin-top: -6px;
   margin-left: -6px;
   margin-right: -6px;
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 auto;
-          flex: 0 1 auto;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .customize-control-sinatra-radio-image input {
   display: none;
@@ -38,34 +28,22 @@
   width: 20px;
   height: 20px;
   background-color: #0085ba;
-  -js-display: flex;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   color: #FFF;
 }
 .customize-control-sinatra-radio-image label {
   position: relative;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  -ms-flex-preferred-size: 33.33%;
-      flex-basis: 33.33%;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  flex-basis: 33.33%;
   max-width: 33.33%;
   padding: 12px 6px 0 6px;
   margin: 0;
 }
 .customize-control-sinatra-radio-image label img {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: solid 2px #fff;
   display: block;
 }

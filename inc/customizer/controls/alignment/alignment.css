@@ -24,8 +24,7 @@
 .sinatra-alignment-control input[type=radio]:focus ~ .button,
 .background-position-control input[type=radio]:focus ~ .button {
   border-color: #5b9dd9;
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  box-shadow: none !important;
   color: #23282d;
 }
 
@@ -34,7 +33,6 @@
   display: inline-block;
   line-height: 1;
   text-align: center;
-  -webkit-transition: background-color 0.1s ease-in;
   transition: background-color 0.1s ease-in;
 }
 .sinatra-alignment-control .alignment-position-center-icon {
@@ -63,8 +61,7 @@
 }
 .sinatra-alignment-control .button-group .button {
   border-radius: 0;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   /* Following properties are overridden by buttons responsive styles (see: wp-includes/css/buttons.css). */
   height: 40px !important;
   line-height: 2.9 !important;
@@ -86,24 +83,16 @@
   pointer-events: none;
 }
 .sinatra-alignment-control .button-group.si-top .si-left .dashicons {
-  -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 .sinatra-alignment-control .button-group.si-top .si-right .dashicons {
-  -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 .sinatra-alignment-control .button-group.si-bottom .si-left .dashicons {
-  -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 .sinatra-alignment-control .button-group.si-bottom .si-right .dashicons {
-  -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 .sinatra-alignment-control .button-group:first-child > label:first-child .button {
   border-top-left-radius: 3px;

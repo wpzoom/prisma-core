@@ -5,9 +5,7 @@
   top: 1.33em !important;
 }
 .sinatra-design-options-wrapper .sinatra-design-options-heading {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  flex-grow: 1;
 }
 .sinatra-design-options-wrapper .sinatra-range-suffix {
   margin-left: 6px;
