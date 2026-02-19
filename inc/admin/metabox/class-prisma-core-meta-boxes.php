@@ -272,6 +272,12 @@ if ( ! class_exists( 'Prisma_Core_Meta_Boxes' ) ) :
 				return;
 			}
 
+			// Skip PHP metabox when the block editor is active — the JS sidebar panel handles it.
+			$post = get_post();
+			if ( $post && function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post ) ) {
+				return;
+			}
+
 			foreach ( $this->metabox as $id => $metabox ) {
 
 				// If the manager is registered for the current post type, add a meta box.

@@ -38,7 +38,10 @@ const paths = {
 	],
 
 	// Pipeline 4: Admin/Customizer JS (dev/ → parent .min.js only)
-	adminJs: 'inc/admin/assets/js/dev/prisma-core-admin.js',
+	adminJs: [
+		'inc/admin/assets/js/dev/prisma-core-admin.js',
+		'inc/admin/assets/js/dev/prisma-core-page-options.js',
+	],
 	customizerJs: 'inc/customizer/assets/js/dev/*.js',
 
 	// Pipeline 5: Customizer control JS (in-place minify)

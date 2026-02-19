@@ -141,5 +141,120 @@ function prisma_core_block_editor_assets() {
 		'prisma-core-block-editor-styles',
 		apply_filters( 'prisma_core_block_editor_dynamic_css', prisma_core_dynamic_styles()->get_block_editor_css() )
 	);
+
+
+	// Script debug.
+	$dev    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? 'dev/' : '';
+	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+	// Enqueue block editor sidebar panel script.
+	wp_enqueue_script(
+		'prisma-core-page-options',
+		PRISMA_CORE_THEME_URI . '/inc/admin/assets/js/' . $dev . 'prisma-core-page-options' . $suffix . '.js',
+		array( 'wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data', 'wp-i18n' ),
+		PRISMA_CORE_THEME_VERSION,
+		true
+	);
+
+	// Pass customizer option visibility flags and select choices to JS.
+	wp_localize_script(
+		'prisma-core-page-options',
+		'prismaPageOptions',
+		array(
+			'visibility' => array(
+				'topbar'       => (bool) prisma_core_option( 'top_bar_enable' ),
+				'pageTitle'    => (bool) prisma_core_option( 'page_header_enable' ),
+				'breadcrumbs'  => (bool) prisma_core_option( 'page_header_enable' )
+				                  && (bool) prisma_core_option( 'breadcrumbs_enable' ),
+				'prefooterCta' => (bool) prisma_core_option( 'enable_pre_footer_cta' ),
+				'footer'       => (bool) prisma_core_option( 'enable_footer' ),
+				'copyright'    => (bool) prisma_core_option( 'enable_copyright' ),
+			),
+			'choices'    => array(
+				'sidebarPosition'   => array(
+					array( 'value' => '', 'label' => __( 'Default (from Customizer)', 'prisma-core' ) ),
+					array( 'value' => 'no-sidebar', 'label' => __( 'No Sidebar', 'prisma-core' ) ),
+					array( 'value' => 'left-sidebar', 'label' => __( 'Left Sidebar', 'prisma-core' ) ),
+					array( 'value' => 'right-sidebar', 'label' => __( 'Right Sidebar', 'prisma-core' ) ),
+				),
+				'contentLayout'     => array(
+					array( 'value' => '', 'label' => __( 'Default (from Customizer)', 'prisma-core' ) ),
+					array( 'value' => 'fw-contained', 'label' => __( 'Full Width: Contained', 'prisma-core' ) ),
+					array( 'value' => 'fw-stretched', 'label' => __( 'Full Width: Stretched', 'prisma-core' ) ),
+					array( 'value' => 'boxed-separated', 'label' => __( 'Boxed Content', 'prisma-core' ) ),
+					array( 'value' => 'boxed', 'label' => __( 'Boxed', 'prisma-core' ) ),
+				),
+				'transparentHeader' => array(
+					array( 'value' => '', 'label' => __( 'Default (from Customizer)', 'prisma-core' ) ),
+					array( 'value' => 'enable', 'label' => __( 'Enable', 'prisma-core' ) ),
+					array( 'value' => 'disable', 'label' => __( 'Disable', 'prisma-core' ) ),
+				),
+			),
+		)
+	);
 }
 add_action( 'enqueue_block_editor_assets', 'prisma_core_block_editor_assets' );
+
+/**
+ * Register post meta for REST API / Block Editor support.
+ *
+ * @since 1.3.1
+ *
+ * @return void
+ */
+function prisma_core_register_post_meta() {
+
+	// Select fields — stored as strings.
+	$select_keys = array(
+		'prisma_core_sidebar_position',
+		'prisma_core_content_layout',
+		'prisma_core_transparent_header',
+	);
+
+	foreach ( $select_keys as $key ) {
+		register_post_meta(
+			'',
+			$key,
+			array(
+				'show_in_rest'      => true,
+				'single'            => true,
+				'type'              => 'string',
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+	}
+
+	// Checkbox fields — stored as booleans.
+	$checkbox_keys = array(
+		'prisma_core_disable_topbar',
+		'prisma_core_disable_header',
+		'prisma_core_disable_page_title',
+		'prisma_core_disable_breadcrumbs',
+		'prisma_core_disable_thumbnail',
+		'prisma_core_disable_prefooter_cta',
+		'prisma_core_disable_footer',
+		'prisma_core_disable_copyright',
+	);
+
+	foreach ( $checkbox_keys as $key ) {
+		register_post_meta(
+			'',
+			$key,
+			array(
+				'show_in_rest'      => true,
+				'single'            => true,
+				'type'              => 'boolean',
+				'default'           => false,
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+	}
+}
+add_action( 'init', 'prisma_core_register_post_meta' );
